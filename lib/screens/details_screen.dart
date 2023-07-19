@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/components/sections/header.dart';
+import 'package:rick_and_morty_app/screens/widgets/floating_list.dart';
 import '../model/character.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -9,15 +11,26 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, IconData> titleToIcon = {
+      "Name": CupertinoIcons.person_crop_circle,
+      "Status": CupertinoIcons.heart_circle,
+      "Specie": Icons.psychology_alt,
+      "Gender": Icons.transgender,
+      "Origin": Icons.house,
+      "Localization": Icons.place,
+    };
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: FloatingList(character: character),
       appBar: AppBar(
-        title: const Text(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(CupertinoIcons.return_icon)),
+        title: Text(
           'Details',
-          style: TextStyle(
-            fontFamily: 'Acme',
-            fontSize: 27,
-            color: Color.fromARGB(255, 41, 253, 48),
-          ),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: Column(
@@ -30,50 +43,60 @@ class DetailsScreen extends StatelessWidget {
                 String title, description;
                 switch (index) {
                   case 0:
-                    title = "Name:";
+                    title = "Name";
                     description = character.name;
                     break;
                   case 1:
-                    title = "Status:";
+                    title = "Status";
                     description = character.status;
                     break;
                   case 2:
-                    title = "Specie:";
+                    title = "Specie";
                     description = character.species;
                     break;
                   case 3:
-                    title = "Gender:";
+                    title = "Gender";
                     description = character.gender;
                     break;
                   case 4:
-                    title = "Origin:";
+                    title = "Origin";
                     description = character.origin.name;
                     break;
                   case 5:
-                    title = "Localization:";
+                    title = "Localization";
                     description = character.location.name;
                     break;
                   default:
                     title = "";
                     description = "";
                 }
-                return ListTile(
-                  title: Text(
-                    title,
-                    style: const TextStyle(
-                      fontFamily: 'Acme',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 27,
-                    ),
+                return Column(
+            children: [
+              ListTile(
+                leading: Icon(
+                  titleToIcon[title],
+                  size: 40,
+                  color: Colors.green[400],
+                ),
+                title: Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'Acme',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 27,
                   ),
-                  subtitle: Text(
-                    description,
-                    style: const TextStyle(
-                      fontFamily: 'Acme',
-                      fontSize: 20,
-                    ),
+                ),
+                subtitle: Text(
+                  description,
+                  style: const TextStyle(
+                    fontFamily: 'Acme',
+                    fontSize: 20,
                   ),
-                );
+                ),
+              ),
+              const Divider(),
+            ],
+          );
               },
             ),
           ),

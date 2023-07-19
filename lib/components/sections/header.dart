@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
         ),
         child: SizedBox(
           width: double.infinity,
-          height: 300,
+          height: 270,
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +29,7 @@ class Header extends StatelessWidget {
               children: <Widget>[
                 CircleAvatar(
                   backgroundImage: NetworkImage(character.image),
-                  radius: 100,
+                  radius: 80,
                 ),
                 const SizedBox(height: 20,),
                 Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/components/animation/loading.dart';
 import 'package:rick_and_morty_app/screens/details_screen.dart';
-import 'package:rick_and_morty_app/services/character_service.dart';
+import 'package:rick_and_morty_app/services/all_page_character.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,21 +11,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        automaticallyImplyLeading: false,
+        title: Text(
           'Rick and Morty characters',
-          style: TextStyle(
-            fontFamily: 'Acme',
-            fontSize: 27,
-            color: Color.fromARGB(255, 41, 253, 48),
-          ),
+          style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       body: FutureBuilder<List>(
-        future: fetchCaracters(),
+        future: fetchAllCharacters(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
@@ -38,12 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 100,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
+                      vertical: 6.0,
+                      horizontal: 14.0,
                     ),
                     child: Card(
-                      shadowColor: Colors.grey,
-                      elevation: 2,
+                      shadowColor: Colors.green,
+                      elevation: 4,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -84,9 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Loading();
         },
       ),
     );

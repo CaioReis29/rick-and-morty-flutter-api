@@ -12,14 +12,19 @@ class InitialScreen extends StatelessWidget {
            body: SingleChildScrollView(
              child: Column(
               children: [
-                const SizedBox(height: 120,),
+                const SizedBox(height: 100,),
                 SizedBox(
                   width: double.infinity,
                   child: Image.asset('assets/img/rick_and_morty_logo-name.png'),
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: Image.asset('assets/img/rick-and-morty.png'),
+                  height: 380,
+                  child: Image.asset(
+                    'assets/img/logo_initial.png',
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    ),
                 ),
                 Padding(padding: const EdgeInsets.all(16),
                   child: ElevatedButton(
@@ -29,12 +34,9 @@ class InitialScreen extends StatelessWidget {
                       }));
                     },
                     style: AppColors.buttonStyle, 
-                    child: const Text(
-                      'Entrar',
-                      style: TextStyle(
-                        fontFamily: 'Acme',
-                        fontSize: 30,
-                      ),
+                    child: Text(
+                      'Enter',
+                      style: Theme.of(context).textTheme.titleLarge
                       ),
                     ),  
                   ),

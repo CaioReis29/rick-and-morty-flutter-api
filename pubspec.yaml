@@ -43,6 +43,9 @@ dependencies:
   provider: ^5.0.0
   flutter_launcher_icons: ^0.9.2  
   flutter_native_splash: ^1.2.0
+  loading_animation_widget:
+  flutter_speed_dial: ^7.0.0
+  modal_bottom_sheet: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +75,7 @@ flutter:
   fonts:
   - family: Acme
     fonts:
-    - asset: assets/fonts/Acme-Regular.ttf
+    - asset: assets/fonts/Lato-Regular.ttf
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

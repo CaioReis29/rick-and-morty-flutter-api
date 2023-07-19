@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/screens/initial_screen.dart';
 import 'package:rick_and_morty_app/themes/my_theme.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
 }
 
