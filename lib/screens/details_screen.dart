@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty_app/components/sections/header.dart';
 import 'package:rick_and_morty_app/screens/widgets/floating_list.dart';
+import 'package:rick_and_morty_app/themes/theme_colors.dart';
 import '../model/character.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -76,15 +77,11 @@ class DetailsScreen extends StatelessWidget {
                 leading: Icon(
                   titleToIcon[title],
                   size: 40,
-                  color: Colors.green[400],
+                  color: AppColors.shadowColor,
                 ),
                 title: Text(
                   title,
-                  style: const TextStyle(
-                    fontFamily: 'Acme',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 27,
-                  ),
+                  style: Theme.of(context).textTheme.titleLarge
                 ),
                 subtitle: Text(
                   description,

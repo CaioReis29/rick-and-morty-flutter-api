@@ -4,7 +4,7 @@ import '../../model/character.dart';
 class ShowEpisodes extends StatelessWidget {
   final Character character;
 
-  const ShowEpisodes({required this.character});
+  const ShowEpisodes({super.key, required this.character});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,7 @@ class ShowEpisodes extends StatelessWidget {
                     style: const TextStyle(
                       fontFamily: "Acme",
                       fontSize: 15,
+                      color: Colors.white
                     ),
                   ),
                 );

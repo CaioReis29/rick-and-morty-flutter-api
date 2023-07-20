@@ -19,7 +19,7 @@ class FloatingList extends StatelessWidget {
           },
         );
       },
-      backgroundColor: const Color.fromARGB(255, 188, 189, 187),
+      backgroundColor: Colors.white,
       label: const Text(
         'Episodes',
         style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),

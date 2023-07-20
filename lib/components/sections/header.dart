@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty_app/themes/theme_colors.dart';
 import '../../model/character.dart';
 
 class Header extends StatelessWidget {
@@ -16,7 +17,7 @@ class Header extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color.fromARGB(255, 124, 231, 128), Color.fromARGB(255, 12, 194, 37)]
+            colors: [AppColors.shadowColor, AppColors.buttonForeground]
             )
         ),
         child: SizedBox(
@@ -34,18 +35,15 @@ class Header extends StatelessWidget {
                 const SizedBox(height: 20,),
                 Text(
                   character.name,
-                  style: const TextStyle(
-                    fontFamily: "Acme",
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium
                 ),
                 Text(
                   character.origin.name,
                   style: const TextStyle(
                     fontFamily: "Acme",
                     fontSize: 20,
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54
                   ),
                 ),
               ],
