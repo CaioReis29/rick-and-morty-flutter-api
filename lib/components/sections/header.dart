@@ -38,7 +38,7 @@ class Header extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium
                 ),
                 Text(
-                  character.origin.name,
+                  character.location.name,
                   style: const TextStyle(
                     fontFamily: "Acme",
                     fontSize: 20,

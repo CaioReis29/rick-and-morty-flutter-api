@@ -21,9 +21,24 @@ class ShowEpisodes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'Episodes',
-              style: Theme.of(context).textTheme.titleLarge,
+            Row(
+              children: <Widget>[
+                Text.rich(
+                  TextSpan(
+                    text: 'Episodes ',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: '(Total: ${character.episodes.length})',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 17
+                          ),
+                      )
+                    ]
+                  )
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             ListView.separated(
@@ -32,10 +47,18 @@ class ShowEpisodes extends StatelessWidget {
               itemCount: character.episodes.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
-                final episode = character.episodes[index];
+                final episode = character.episodesDetail[index];
                 return ListTile(
                   title: Text(
-                    episode,
+                    episode.name,
+                    style: const TextStyle(
+                      fontFamily: "Acme",
+                      fontSize: 15,
+                      color: Colors.white
+                    ),
+                  ),
+                  subtitle: Text(
+                    episode.episode,
                     style: const TextStyle(
                       fontFamily: "Acme",
                       fontSize: 15,

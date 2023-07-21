@@ -1,3 +1,5 @@
+import 'package:rick_and_morty_app/model/detail_episodes.dart';
+
 class Character {
   final int id;
   final String name;
@@ -11,6 +13,7 @@ class Character {
   final List<String> episodes;
   final String url;
   final String created;
+  final List<EpisodesDetail> episodesDetail;
 
   Character({
     required this.id,
@@ -24,7 +27,8 @@ class Character {
     required this.image,
     required this.episodes,
     required this.url,
-    required this.created,
+    required this.created, 
+    required this.episodesDetail,
   });
 }
 

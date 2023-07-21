@@ -14,7 +14,14 @@ ThemeData myTheme = ThemeData(
     titleMedium: TextStyle(
       fontFamily: "Acme",
       fontSize: 27,
-      color: Colors.black87
+      color: Colors.black87,
+      fontWeight: FontWeight.bold
+    ),
+    titleSmall: TextStyle(
+      fontFamily: "Acme",
+      fontSize: 23,
+      color: Colors.white,
+      fontWeight: FontWeight.bold
     ),
     bodyLarge: TextStyle(
       fontFamily: "Acme",
