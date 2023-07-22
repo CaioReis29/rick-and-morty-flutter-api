@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rick_and_morty_app/screens/home_screen.dart';
 import 'package:rick_and_morty_app/themes/theme_colors.dart';
 
@@ -7,7 +8,7 @@ class InitialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -49,9 +50,9 @@ class InitialScreen extends StatelessWidget {
                   }));
                 },
                 style: AppColors.buttonStyle,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  child: Text('ENTER'),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Text('enter_message'.tr),
                 ),
               ),
             ),

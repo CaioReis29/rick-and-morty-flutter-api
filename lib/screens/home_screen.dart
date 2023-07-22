@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rick_and_morty_app/components/animation/loading.dart';
 import 'package:rick_and_morty_app/screens/details_screen.dart';
 import 'package:rick_and_morty_app/screens/widgets/search_character.dart';
@@ -32,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
         future: service.fetchCharacters(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
-              child: Text('Error to loading characters'),
+            return Center(
+              child: Text('error_loading_characters'.tr),
             );
           } else if (snapshot.hasData) {
             return ListView.builder(
