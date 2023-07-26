@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:rick_and_morty_app/components/animation/loading.dart';
+import 'package:rick_and_morty_app/model/character.dart';
 import 'package:rick_and_morty_app/screens/details_screen.dart';
 import 'package:rick_and_morty_app/screens/widgets/search_character.dart';
 import 'package:rick_and_morty_app/themes/theme_colors.dart';
@@ -14,8 +14,39 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
 
   CharacterService service = CharacterService();
+  final ScrollController scrollController = ScrollController();
+  int _currentPage = 1;
+  final List<Character> _characters = [];
+  final int _charactersPerPage = 10;
+
+  Future<void> _loadMoreCharacters() async {
+    List<Character> moreCharacters = await service.fetchCharacters(
+      page: _currentPage + 1,
+      limit: _charactersPerPage,
+    );
+    setState(() {
+      _currentPage++;
+      _characters.addAll(moreCharacters);
+      _isLoading = false;
+    });
+  }
+
+  void scrollListener() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      _loadMoreCharacters();
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(scrollListener);
+    _loadMoreCharacters();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +54,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Center(
           child: Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: SearchCharacter(),
-              ),
+            padding: EdgeInsets.only(bottom: 8),
+            child: SearchCharacter(),
+          ),
         ),
         automaticallyImplyLeading: false,
       ),
-      body: FutureBuilder<List>(
-        future: service.fetchCharacters(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('error_loading_characters'.tr),
-            );
-          } else if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
+      body: _isLoading
+          ? const Loading()
+          : ListView.builder(
+              controller: scrollController,
+              itemCount: _characters.length,
               itemBuilder: (context, index) {
                 return SizedBox(
                   height: 100,
@@ -59,21 +85,33 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) {
-                                return DetailsScreen(character: snapshot.data![index]);
+                                return DetailsScreen(
+                                    character: _characters[index]);
                               }),
                             );
                           },
-                          leading: CircleAvatar(
+                          leading: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.shadowColor,
+                                width:
+                                    2,
+                              ),
+                            ),
+                            child: CircleAvatar(
                               backgroundColor: AppColors.buttonBackground,
-                              backgroundImage: NetworkImage(snapshot.data![index].image),
+                              backgroundImage:
+                                  NetworkImage(_characters[index].image),
                               radius: 40,
                             ),
+                          ),
                           title: Text(
-                            snapshot.data![index].name,
+                            _characters[index].name,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           subtitle: Text(
-                            snapshot.data![index].location.name,
+                            _characters[index].location.name,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ),
@@ -82,11 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-            );
-          }
-          return const Loading();
-        },
-      ),
+            ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:rick_and_morty_app/screens/initial_screen.dart';
 import 'package:rick_and_morty_app/themes/my_theme.dart';
 import 'package:rick_and_morty_app/translations/app_translations.dart';

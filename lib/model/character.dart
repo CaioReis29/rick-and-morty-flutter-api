@@ -3,18 +3,18 @@ import 'package:rick_and_morty_app/model/detail_episodes.dart';
 
 class Character {
   final int id;
-  final String name;
-  final String status;
-  final String species;
-  final String type;
-  final String gender;
-  final CharacterOrigin origin;
-  final CharacterLocation location;
-  final String image;
-  final List<String> episodes;
-  final String url;
-  final String created;
-  final List<EpisodesDetail> episodesDetail;
+  String name;
+  String status;
+  String species;
+  String type;
+  String gender;
+  CharacterOrigin origin;
+  CharacterLocation location;
+  String image;
+  List<String> episodes;
+  String url;
+  String created;
+  List<EpisodesDetail> episodesDetail;
 
 
   Character({

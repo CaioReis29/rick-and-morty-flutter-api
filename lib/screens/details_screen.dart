@@ -4,15 +4,21 @@ import 'package:get/get.dart';
 import 'package:rick_and_morty_app/components/sections/header.dart';
 import 'package:rick_and_morty_app/screens/widgets/floating_list.dart';
 import 'package:rick_and_morty_app/themes/theme_colors.dart';
+import 'package:rick_and_morty_app/translations/app_translations.dart';
 import '../model/character.dart';
 
 class DetailsScreen extends StatelessWidget {
+
   final Character character;
+
 
   const DetailsScreen({Key? key, required this.character}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    AppTranslations translations = AppTranslations();
+
     final Map<String, IconData> titleToIcon = {
       'name_details'.tr: CupertinoIcons.person_crop_circle,
       'status_details'.tr: CupertinoIcons.heart_circle,
@@ -50,19 +56,19 @@ class DetailsScreen extends StatelessWidget {
                     break;
                   case 1:
                     title = 'status_details'.tr;
-                    description = character.status;
+                    description = translations.statusTranslated(character);
                     break;
                   case 2:
                     title = 'specie_details'.tr;
-                    description = character.species;
+                    description = translations.specieTranslated(character);
                     break;
                   case 3:
                     title = 'gender_details'.tr;
-                    description = character.gender;
+                    description = translations.genderTranslated(character);
                     break;
                   case 4:
                     title = 'origin_details'.tr;
-                    description = character.origin.name;
+                    description = translations.originNameTranslation(character);
                     break;
                   case 5:
                     title = 'localization_details'.tr;

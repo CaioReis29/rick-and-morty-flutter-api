@@ -15,65 +15,51 @@ class CharacterService {
     return "$baseUrl$endpoint";
   }
 
-   
-
-  Future<List<Character>> fetchCharacters() async {
-
+  Future<List<Character>> fetchCharacters({ int page = 0, int limit = 10 }) async {
     List<Character> allCharacters = [];
-    int page = 1;
-
     EpisodeService episodeService = EpisodeService();
 
-    while (true) {
-      final response = await client.get(Uri.parse(getUrl("$resource?page=$page")));
+    final response = await client.get(Uri.parse(getUrl("$resource?page=$page&limit=$limit")));
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
 
-        if (data is Map && data.containsKey('results')) {
-          final charactersData = data['results'] as List<dynamic>;
+      if (data is Map && data.containsKey('results')) {
+        final charactersData = data['results'] as List<dynamic>;
 
-          for (var characterData in charactersData) {
+        for (var characterData in charactersData) {
+          List<String> episodeUrl = List<String>.from(characterData["episode"]);
+          List<EpisodesDetail> episodeDetail = await episodeService.fetchEpisodeDetails(episodeUrl);
 
-            List<String> episodeUrl = List<String>.from(characterData["episode"]);
-            List<EpisodesDetail> episodeDetail = await episodeService.fetchEpisodeDetails(episodeUrl);
+          Character character = Character(
+            id: characterData["id"],
+            name: characterData["name"],
+            status: characterData["status"],
+            species: characterData["species"],
+            type: characterData["type"],
+            gender: characterData["gender"],
+            origin: CharacterOrigin(
+              name: characterData["origin"]["name"],
+              url: characterData["origin"]["url"],
+            ),
+            location: CharacterLocation(
+              name: characterData["location"]["name"],
+              url: characterData["location"]["url"],
+            ),
+            image: characterData["image"],
+            episodes: List<String>.from(characterData["episode"]),
+            url: characterData["url"],
+            created: characterData["created"],
+            episodesDetail: episodeDetail,
+          );
 
-            Character character = Character(
-              id: characterData["id"],
-              name: characterData["name"],
-              status: characterData["status"],
-              species: characterData["species"],
-              type: characterData["type"],
-              gender: characterData["gender"],
-              origin: CharacterOrigin(
-                name: characterData["origin"]["name"],
-                url: characterData["origin"]["url"],
-              ),
-              location: CharacterLocation(
-                name: characterData["location"]["name"],
-                url: characterData["location"]["url"],
-              ),
-              image: characterData["image"],
-              episodes: List<String>.from(characterData["episode"]),
-              url: characterData["url"],
-              created: characterData["created"],
-              episodesDetail: episodeDetail
-            );
-
-            allCharacters.add(character);
-          }
-
-          if (data.containsKey('info') && data['info']['next'] != null) {
-            page++;
-          } else {
-            break; 
-          }
-        } else {
-          throw Exception('Invalid API response');
+          allCharacters.add(character);
         }
       } else {
-        throw Exception('Failed to load information');
+        throw Exception('Invalid API response');
       }
+    } else {
+      throw Exception('Failed to load information');
     }
 
     return allCharacters;
